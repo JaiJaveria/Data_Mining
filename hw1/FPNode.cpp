@@ -2,10 +2,7 @@
 using namespace std;
 class FPNode
 {
-// private:
-// 	FPNode parent
 public:
-	// FPNode()
 	FPNode(int k)
 	{
 		parent=NULL;

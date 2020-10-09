@@ -2,8 +2,11 @@
 class FPTree
 {
 public:
-	unordered_map<int,FPNode*> children;
-	// FPTree();
+	FPTree(): root(FPNode(-1))
+	{
+	}
+	FPNode root;
+
 	// ~FPTree();
 	
 };
