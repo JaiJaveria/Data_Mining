@@ -20,25 +20,36 @@ public:
 
 	void insert(std::vector<int> v, int c, int i)
 	{
-		int key=v[i];
+		int k=v[i];
+		//cout<<key<<endl;
 		// FPNode fpn;
-		FPNode *n;
-		if(children.find(key)!=children.end())
+		//FPNode *n;
+		
+		
+		if(children.find(k)!=children.end())
 		{
-			children[key]->counter+=c;
+			
+			children[k]->counter+=c;
 		}
 		else
 		{
-			FPNode fpn= FPNode(key);
-			n=&fpn;
-			children[key]=n;
+			
+			FPNode *n= new FPNode(k);
+			
+			//n=&fpn;
+			
+			children.insert({k,n});
+			
 			n->counter+=c;
 			n->parent=this;
+			
 		}
 		// cout <<"3" << (children[key]==n)<< endl;
-		if(i+1<v.size())
+		if(i+1<v.size()){
 			// children[key]->insert(v,c, i+1);
-			children[key]->insert(v,c, i+1);
+			
+			FPNode *a = (children[k]);
+			a->insert(v,c,i+1);}
 	}
 	void insert(std::vector<pair<int,int>> v, int c, int i)
 	{
