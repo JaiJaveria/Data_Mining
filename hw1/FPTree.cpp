@@ -1,4 +1,6 @@
 #include "FPNode.cpp"
+#include <queue>
+// #include <iostream>
 class FPTree
 {
 public:
@@ -7,6 +9,35 @@ public:
 	}
 	FPNode root;
 
-	// ~FPTree();
-	
+	void insert(std::vector<int> v, int c )
+	{
+		root.insert(v, c, 0);
+	}
+	void insert(std::vector<pair<int,int>> v, int c )
+	{
+		root.insert(v, c, 0);
+	}
+	void print()
+	{
+		queue<FPNode*> q;
+		q.push(&root);
+		// q.push(NULL);
+		while(!q.empty())
+		{
+			FPNode* n= q.front();
+			q.pop();
+			// if(n==NULL)
+				// cout << "\n";
+			// else
+			printf("%d\n",n->key );
+			// cout << n->key << " ";
+			// for(auto i=n.children.begin(), i< n.children.end(); i++)
+			for(auto i: n->children)
+			{
+				q.push(i.second);
+			}
+		}
+		printf("\n");
+		// cout << "\n";
+	}
 };

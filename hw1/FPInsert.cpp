@@ -1,4 +1,6 @@
-#include "FPNode.cpp"
+// #include "FPNode.cpp"
+#include "FPTree.cpp"
+
 #include <fstream> //for ifstream
 #include <utility> //fOR pair
 #include <vector> 
@@ -15,21 +17,29 @@ bool compare(pair<int,unsigned int> a, pair<int,unsigned int> b )
 
 int main(int argc, char const *argv[])
 {
+	cout << boolalpha;
 	/* Reading the dat file */
 	ifstream datb;
 	int numT;
 	unordered_map<int, int> freqSin;//frequent singletons
 	//first argument is the path of database and second is the threshold percentage.
 	int x=atoi(argv[2]);
-	// cout << argv[1]<<"\n";
+	cout << argv[1]<<"\n";
 	// cout << argv[2] << "\n";
-
+	// printf("aaaa\n");
+	// cout <<"aaa";
+	// cout << "28--";
+	// cout << "28";
+	// cout << endl;
 	datb.open(argv[1]);
 	if(!datb)
 	{
 		cout << "Not found";
 		return -1;
 	}
+	// cout << "35--";
+	// cout << endl;
+
 	int data;
 	string d;
 	vector<pair<int,unsigned int>> freq;//to store the counters.
@@ -37,9 +47,16 @@ int main(int argc, char const *argv[])
 	freq.push_back(p);
 	int item=1;
 	numT=0;
+	int c=0;//delete
+	// cout << "43--";
+	// cout << endl;
+
 	while(getline(datb, d))
 	{
 		numT++;
+		c++;//delete
+		if(c>3)
+			break;
 		istringstream ss(d);
 		while( ss>> data)
 		{
@@ -66,16 +83,14 @@ int main(int argc, char const *argv[])
 	// for (int i = 0; i < freq.size(); ++i)
 	// 	cout << freq[i].first << " : " << freq[i].second << "\n";
 
-	//make hash table of freqent ones
+	//make hash table of frequent ones
 	for (int i = 0; i < freq.size(); ++i)
 	{
-		
 		if(freq[i].second>=s)
 		{
 			freqSin[freq[i].first]=freq[i].second;
 		}
 	}
-	
 	freq.clear();
 	ifstream datbA;
 	datbA.open(argv[1]);
@@ -85,8 +100,16 @@ int main(int argc, char const *argv[])
 		return -1;
 	}
 	std::vector<pair<int,int>> basket;
+	FPTree FP_tree;
+	// cout << "93--";
+	cout << endl;
+
+	c=0;//need to delete
 	while(getline(datbA, d))
 	{
+		c++;
+		if(c>2)
+			break;
 		basket.clear();
 		istringstream ss(d);
 		while( ss>> data)
@@ -97,13 +120,25 @@ int main(int argc, char const *argv[])
 				basket.push_back(p);
 			}
 		}
-		sort(basket.begin(), basket.end(), compare);
-		// for (int i = 0; i < basket.size(); ++i)
-		// {
-		// 	cout << basket[i].first << " ";
-		// }
-		// cout << "\n";
+		if(basket.size()>0)
+		{
+			sort(basket.begin(), basket.end(), compare);
+			cout << "110--";
+			cout << endl;
+			// cout << basket.size();
+			FP_tree.insert(basket,1);
+			cout << "112--";
+			cout << endl;
+
+			// FP_tree.print();
+			// for (int i = 0; i < basket.size(); ++i)
+			// {
+			// 	cout << basket[i].first << " ";
+			// }
+			// cout << "\n";
+		}
 		
 	}
+	
 	return 0;
 }
