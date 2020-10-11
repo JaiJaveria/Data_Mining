@@ -5,8 +5,8 @@ using namespace std;
 class FPNode
 {
 public:
-	// FPNode(int k) : children()
-	FPNode(int k) 
+	FPNode(int k) : children()
+	// FPNode(int k) 
 	{
 		parent=NULL;
 		counter=0;
@@ -26,6 +26,7 @@ public:
 		if(children.find(key)!=children.end())
 		{
 			children[key]->counter+=c;
+			cout << "29--";
 		}
 		else
 		{
@@ -42,15 +43,15 @@ public:
 	}
 	void insert(std::vector<pair<int,int>> v, int c, int i)
 	{
-		cout<< "37FPN" << endl;
-		cout<< v.size()<< endl;
+		// cout<< "37FPN" << endl;
+		// cout<< v.size()<< endl;
 		int key=v[i].first;
 		FPNode *n;
-		if(!this->children.empty())
-		{
-			if(this->children.find(key)!=this-> children.end())
+			if((this->children).find(key)!=(this-> children).end())
 			{
-				this->children[key]->counter+=c;
+				(this->children[key])->counter+=c;
+				// cout << "55--";
+
 			}
 			else
 			{
@@ -58,19 +59,15 @@ public:
 				// FPNode fpn= new FPNode(key);
 				// n=&fpn;
 				// cout << (n==NULL)<< endl;
-				this->children[key]=n;
 				n->counter+=c;
 				n->parent=this;
-				cout << n << endl;
-				cout << (this->children[key]==n)<< endl;
-			}	
-		}	
-		
-		// cout << (children==NULL)<< endl; 
-			cout << this->children[key] << endl;
+				this->children[key]=n;
 
+				// cout << n << endl;
+				// cout << (this->children[key]==n)<< endl;
+			}	
 		if(i+1<v.size())
-			this->children[key]->insert(v,c, i+1);
+			(this->children[key])->insert(v,c, i+1);
 	}
 	// ~FPNode();
 	

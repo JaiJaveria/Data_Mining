@@ -4,23 +4,24 @@
 class FPTree
 {
 public:
-	FPTree(): root(FPNode(-1))
+	FPTree()
 	{
+		root= new FPNode(-1);
 	}
-	FPNode root;
+	FPNode *root;
 
 	void insert(std::vector<int> v, int c )
 	{
-		root.insert(v, c, 0);
+		root->insert(v, c, 0);
 	}
 	void insert(std::vector<pair<int,int>> v, int c )
 	{
-		root.insert(v, c, 0);
+		root->insert(v, c, 0);
 	}
 	void print()
 	{
 		queue<FPNode*> q;
-		q.push(&root);
+		q.push(root);
 		// q.push(NULL);
 		while(!q.empty())
 		{
@@ -29,7 +30,7 @@ public:
 			// if(n==NULL)
 				// cout << "\n";
 			// else
-			printf("%d\n",n->key );
+			printf("%d:%d ",n->key,n->counter );
 			// cout << n->key << " ";
 			// for(auto i=n.children.begin(), i< n.children.end(); i++)
 			for(auto i: n->children)

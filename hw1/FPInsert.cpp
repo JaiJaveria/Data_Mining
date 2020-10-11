@@ -54,9 +54,9 @@ int main(int argc, char const *argv[])
 	while(getline(datb, d))
 	{
 		numT++;
-		c++;//delete
-		if(c>3)
-			break;
+		// c++;//delete
+		// if(c>3)
+			// break;
 		istringstream ss(d);
 		while( ss>> data)
 		{
@@ -73,13 +73,14 @@ int main(int argc, char const *argv[])
 		}
 	}
 	float s=x*numT/100;
+	cout << s << endl;
 	// sort(freq.begin(), freq.end(), compare);
 	// // now remove the infrequent ones.
 	// while(freq.back().second<s)
 	// {
 	// 	freq.pop_back();
 	// }
-	// for testing. outputting the frequent item list
+	// // for testing. outputting the frequent item list
 	// for (int i = 0; i < freq.size(); ++i)
 	// 	cout << freq[i].first << " : " << freq[i].second << "\n";
 
@@ -90,6 +91,11 @@ int main(int argc, char const *argv[])
 		{
 			freqSin[freq[i].first]=freq[i].second;
 		}
+	}
+	for (auto i : freqSin)
+	{
+		/* code */
+		cout << i.first << " : "<< i.second << endl;
 	}
 	freq.clear();
 	ifstream datbA;
@@ -107,8 +113,8 @@ int main(int argc, char const *argv[])
 	c=0;//need to delete
 	while(getline(datbA, d))
 	{
-		c++;
-		if(c>2)
+		c++;//delete
+		if(c>64)
 			break;
 		basket.clear();
 		istringstream ss(d);
@@ -123,19 +129,21 @@ int main(int argc, char const *argv[])
 		if(basket.size()>0)
 		{
 			sort(basket.begin(), basket.end(), compare);
-			cout << "110--";
-			cout << endl;
+			
 			// cout << basket.size();
 			FP_tree.insert(basket,1);
 			cout << "112--";
 			cout << endl;
+			for (int i = 0; i < basket.size(); ++i)
+			{
+				cout << basket[i].first << " ";
+			}
+			cout << endl;
 
-			// FP_tree.print();
-			// for (int i = 0; i < basket.size(); ++i)
-			// {
-			// 	cout << basket[i].first << " ";
-			// }
-			// cout << "\n";
+			cout << "141--";
+			cout << endl;
+			FP_tree.print();
+			
 		}
 		
 	}
