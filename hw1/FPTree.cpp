@@ -30,7 +30,7 @@ public:
 			// if(n==NULL)
 				// cout << "\n";
 			// else
-			printf("%d:%d ",n->key,n->counter );
+			printf("%d:%d ",n->key,n->counter2 );
 			// cout << n->key << " ";
 			// for(auto i=n.children.begin(), i< n.children.end(); i++)
 			for(auto i: n->children)
