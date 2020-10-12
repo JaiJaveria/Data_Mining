@@ -11,8 +11,10 @@ public:
 		parent=NULL;
 		counter=0;
 		key=k;
+		next=NULL;
 	}
 	FPNode* parent;
+	FPNode* next;
 	int key;
 	int counter;
 	unordered_map<int,FPNode*> children;
@@ -36,7 +38,8 @@ public:
 		if(i+1<v.size()){
 			children[k]->insert(v,c,i+1);}
 	}
-	void insert(std::vector<pair<int,int>> v, int c, int i)
+	void insert(std::vector<pair<int,int>> v, int c, int i, std::vector<pair<int,FPNode*>> *endNode,unordered_map<int,int> *indexFind )
+	// void insert(std::vector<pair<int,int>> v, int c, int i,std::vector<pair<int,FPNode*>> *header,std::vector<pair<int,FPNode*>> *endNode, unordered_map<int,int> *indexFind )
 	{
 		// cout<< "37FPN" << endl;
 		// cout<< v.size()<< endl;
@@ -50,9 +53,14 @@ public:
 			n->counter+=c;
 			n->parent=this;
 			this->children[key]=n;
+			int i=(*indexFind)[key];
+			if ((*endNode)[i].second!=NULL)
+				(*endNode)[i].second->next=this->children[key];	
+			(*endNode)[i].second=this->children[key];
+
 		}	
 		if(i+1<v.size())
-			(this->children[key])->insert(v,c, i+1);
+			(this->children[key])->insert(v,c, i+1, endNode, indexFind);
 	}
 	// ~FPNode();
 	

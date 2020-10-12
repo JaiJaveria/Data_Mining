@@ -14,9 +14,9 @@ public:
 	{
 		root->insert(v, c, 0);
 	}
-	void insert(std::vector<pair<int,int>> v, int c )
+	void insert(std::vector<pair<int,int>> v, int c,std::vector<pair<int,FPNode*>> *endNode, unordered_map<int,int> *indexFind )
 	{
-		root->insert(v, c, 0);
+		root->insert(v, c, 0,endNode, indexFind );
 	}
 	void print()
 	{
@@ -30,7 +30,7 @@ public:
 			// if(n==NULL)
 				// cout << "\n";
 			// else
-			printf("%d:%d ",n->key,n->counter2 );
+			printf("%d:%d ",n->key,n->counter );
 			// cout << n->key << " ";
 			// for(auto i=n.children.begin(), i< n.children.end(); i++)
 			for(auto i: n->children)

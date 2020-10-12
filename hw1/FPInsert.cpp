@@ -7,11 +7,18 @@
 #include <iostream>
 #include <algorithm> //for sort
 #include <sstream> //for istringstream
+#include <functional> // foor bind
 using namespace std;
+using namespace std::placeholders;
 bool compare(pair<int,unsigned int> a, pair<int,unsigned int> b )
 {
 	//more count more
 	return ((a.second > b.second) || (a.second==b.second && a.first > b.first));
+}
+bool compareMap(unordered_map<int, int> *m, pair<int,FPNode*> a, pair<int,FPNode*> b )
+{
+	//more count more
+	return (((*m)[a.first] > (*m)[b.first]) || ((*m)[a.first]==(*m)[b.first] && a.first > b.first));
 }
 
 
@@ -24,21 +31,12 @@ int main(int argc, char const *argv[])
 	unordered_map<int, int> freqSin;//frequent singletons
 	//first argument is the path of database and second is the threshold percentage.
 	int x=atoi(argv[2]);
-	cout << argv[1]<<"\n";
-	// cout << argv[2] << "\n";
-	// printf("aaaa\n");
-	// cout <<"aaa";
-	// cout << "28--";
-	// cout << "28";
-	// cout << endl;
 	datb.open(argv[1]);
 	if(!datb)
 	{
 		cout << "Not found";
 		return -1;
 	}
-	// cout << "35--";
-	// cout << endl;
 
 	int data;
 	string d;
@@ -47,10 +45,6 @@ int main(int argc, char const *argv[])
 	freq.push_back(p);
 	int item=1;
 	numT=0;
-	int c=0;//delete
-	// cout << "43--";
-	// cout << endl;
-
 	while(getline(datb, d))
 	{
 		numT++;
@@ -72,8 +66,9 @@ int main(int argc, char const *argv[])
 			freq[data].second++;
 		}
 	}
-	float s=x*numT/100;
-	cout << s << endl;
+	float s=(float)x*numT/100;
+	// cout <<"70--threshold "<< s << endl;
+	//sorting the whole frequent table
 	// sort(freq.begin(), freq.end(), compare);
 	// // now remove the infrequent ones.
 	// while(freq.back().second<s)
@@ -84,20 +79,43 @@ int main(int argc, char const *argv[])
 	// for (int i = 0; i < freq.size(); ++i)
 	// 	cout << freq[i].first << " : " << freq[i].second << "\n";
 
-	//make hash table of frequent ones
+	//------------make hash table of frequent ones
 	for (int i = 0; i < freq.size(); ++i)
-	{
 		if(freq[i].second>=s)
-		{
 			freqSin[freq[i].first]=freq[i].second;
-		}
-	}
-	for (auto i : freqSin)
-	{
-		/* code */
-		cout << i.first << " : "<< i.second << endl;
-	}
+
+	// cout << "86-- hashmap";
+	// for (auto i : freqSin)
+	// 	cout << i.first << " : "<< i.second << endl;
+
 	freq.clear();
+	//------------hash table created. 
+	//------------now make the header file
+	std::vector<pair<int,int>> basket;
+	FPTree FP_tree;
+	std::vector<pair<int,FPNode*>> header;
+	std::vector<pair<int,FPNode*>> endNode;
+	bool headerInit=false;
+	//indexfind to find the index of a item id in header vector.
+	unordered_map<int, int> indexFind;
+	auto compBind=bind(compareMap, &freqSin, _1, _2 );
+	for(auto i: freqSin)
+	{
+		pair<int,FPNode*> p(i.first,NULL);
+		header.push_back(p);
+	}
+	sort(header.begin(), header.end(), compBind);
+	endNode.assign(header.begin(), header.end());
+	for (int i = 0; i < header.size(); ++i)
+		indexFind[header[i].first]=i;
+	// //print the header
+	// for (auto i: header)
+	// 	cout << i.first << endl;
+	// cout << endl;
+	// for (auto i: endNode)
+	// 	cout << i.first << endl;
+	//-----header and endnode created
+	//---- read the datab and create fptree
 	ifstream datbA;
 	datbA.open(argv[1]);
 	if(!datbA)
@@ -105,12 +123,7 @@ int main(int argc, char const *argv[])
 		cout << "Not found";
 		return -1;
 	}
-	std::vector<pair<int,int>> basket;
-	FPTree FP_tree;
-	// cout << "93--";
-	cout << endl;
-
-	c=0;//need to delete
+	int c=0;//need to delete
 	while(getline(datbA, d))
 	{
 		c++;//delete
@@ -129,24 +142,50 @@ int main(int argc, char const *argv[])
 		if(basket.size()>0)
 		{
 			sort(basket.begin(), basket.end(), compare);
-			
-			// cout << basket.size();
-			FP_tree.insert(basket,1);
-			cout << "112--";
-			cout << endl;
-			for (int i = 0; i < basket.size(); ++i)
+			FP_tree.insert(basket,1, &endNode, &indexFind);
+			if(!headerInit)
 			{
-				cout << basket[i].first << " ";
+				//insert only sets the end node. the end node initialized first time is the starting node of that element. thus we need to initialize that. when all the header is initialized we do not want to get in this loop.
+				headerInit=true;
+				for (int i = 0; i < header.size(); ++i)
+				{
+					if(endNode[i].second!=NULL && header[i].second==NULL)
+					{
+						header[i].second=endNode[i].second;
+					}
+					else if(endNode[i].second==NULL && header[i].second==NULL)
+						headerInit=false;
+				}
 			}
-			cout << endl;
+				
+			// cout << "112--";
+			// cout << endl;
+			// for (int i = 0; i < basket.size(); ++i)
+			// {
+			// 	cout << basket[i].first << " ";
+			// }
+			// cout << endl;
 
-			cout << "141--";
-			cout << endl;
-			FP_tree.print();
-			
+			// cout << "141--";
+			// cout << endl;
+			// FP_tree.print();
 		}
-		
 	}
-	
+	// //printing the final tree and header for debug purpose
+	// cout << "174 FPTree--";
+	// cout << endl;
+	// FP_tree.print();
+	// cout << "176 Header--" << endl;		
+	// for( auto ih : header)
+	// {
+	// 	FPNode* j;
+	// 	j=ih.second;
+	// 	while(j!=NULL)
+	// 	{
+	// 		cout << j->key << ":"<<j->counter<< " ";
+	// 		j=j->next;
+	// 	}
+	// 	cout <<endl;
+	// }
 	return 0;
 }
