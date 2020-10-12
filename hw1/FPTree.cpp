@@ -10,13 +10,14 @@ public:
 	}
 	FPNode *root;
 
-	void insert(std::vector<int> v, int c )
+	void insert(std::vector<int> v, int c,unordered_map<int,int> *frequency  )
 	{
-		root->insert(v, c, 0);
+		
+		root->insert(v, c, 0, frequency);
 	}
-	void insert(std::vector<pair<int,int>> v, int c,std::vector<pair<int,FPNode*>> *endNode, unordered_map<int,int> *indexFind )
+	void insert(std::vector<pair<int,int>> v, int c,std::vector<pair<int,FPNode*>> *endNode, unordered_map<int,int> *indexFind, unordered_map<int,int> *frequency )
 	{
-		root->insert(v, c, 0,endNode, indexFind );
+		root->insert(v, c, 0,endNode, indexFind ,frequency);
 	}
 	void print()
 	{

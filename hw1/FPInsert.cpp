@@ -124,6 +124,7 @@ int main(int argc, char const *argv[])
 		return -1;
 	}
 	int c=0;//need to delete
+	unordered_map <int,int> frequency;
 	while(getline(datbA, d))
 	{
 		c++;//delete
@@ -142,7 +143,7 @@ int main(int argc, char const *argv[])
 		if(basket.size()>0)
 		{
 			sort(basket.begin(), basket.end(), compare);
-			FP_tree.insert(basket,1, &endNode, &indexFind);
+			FP_tree.insert(basket,1, &endNode, &indexFind , &frequency);
 			if(!headerInit)
 			{
 				//insert only sets the end node. the end node initialized first time is the starting node of that element. thus we need to initialize that. when all the header is initialized we do not want to get in this loop.

@@ -20,9 +20,16 @@ public:
 	unordered_map<int,FPNode*> children;
 	
 
-	void insert(std::vector<int> v, int c, int i)
+	void insert(std::vector<int> v, int c, int i, unordered_map<int,int> *frequency )
 	{
 		int k=v[i];
+		if((*frequency).find(key)!=(*frequency).end()){
+			(*frequency)[key]+=c;
+			}
+		else{
+			(*frequency)[key]=c;
+			
+		}
 		FPNode *n;
 		if(children.find(k)!=children.end())
 			children[key]->counter+=c;
@@ -36,14 +43,21 @@ public:
 			
 		}
 		if(i+1<v.size()){
-			children[k]->insert(v,c,i+1);}
+			children[k]->insert(v,c,i+1, frequency);}
 	}
-	void insert(std::vector<pair<int,int>> v, int c, int i, std::vector<pair<int,FPNode*>> *endNode,unordered_map<int,int> *indexFind )
+	void insert(std::vector<pair<int,int>> v, int c, int i, std::vector<pair<int,FPNode*>> *endNode,unordered_map<int,int> *indexFind, unordered_map<int,int> *frequency )
 	// void insert(std::vector<pair<int,int>> v, int c, int i,std::vector<pair<int,FPNode*>> *header,std::vector<pair<int,FPNode*>> *endNode, unordered_map<int,int> *indexFind )
 	{
 		// cout<< "37FPN" << endl;
 		// cout<< v.size()<< endl;
 		int key=v[i].first;
+		if((*frequency).find(key)!=(*frequency).end()){
+			(*frequency)[key]+=c;
+			}
+		else{
+			(*frequency)[key]=c;
+			
+		}
 		FPNode *n;
 		if((this->children).find(key)!=(this-> children).end())
 			(this->children[key])->counter+=c;
@@ -60,7 +74,7 @@ public:
 
 		}	
 		if(i+1<v.size())
-			(this->children[key])->insert(v,c, i+1, endNode, indexFind);
+			(this->children[key])->insert(v,c, i+1, endNode, indexFind,frequency);
 	}
 	// ~FPNode();
 	
