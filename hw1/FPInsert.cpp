@@ -151,9 +151,7 @@ int main(int argc, char const *argv[])
 				for (int i = 0; i < header.size(); ++i)
 				{
 					if(endNode[i].second!=NULL && header[i].second==NULL)
-					{
 						header[i].second=endNode[i].second;
-					}
 					else if(endNode[i].second==NULL && header[i].second==NULL)
 						headerInit=false;
 				}
