@@ -1,5 +1,6 @@
 // #include "FPNode.cpp"
 #include "FPTree.cpp"
+#include "cond_fp.cpp"
 
 #include <fstream> //for ifstream
 #include <utility> //fOR pair
@@ -186,5 +187,17 @@ int main(int argc, char const *argv[])
 	// 	}
 	// 	cout <<endl;
 	// }
+	FPTree con_fp;
+	std::vector<int> v;
+	//-----------------------
+	// now  doing conditional fptree here and mining frequent subsets
+	for (int i = header.size()-1; i >=0; --i)
+	{
+		con_fp=cond_fp(header[i].second, 0);
+		v.clear();
+		v.push_back(header[i].first);
+		mineFreq(&con_fp, v, frequency, s);
+		//see the links of each header entry and find frequent itemsets
+	}
 	return 0;
 }
