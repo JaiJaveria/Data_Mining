@@ -82,7 +82,7 @@ int main(int argc, char const *argv[])
 
 	//------------make hash table of frequent ones
 	for (int i = 0; i < freq.size(); ++i)
-		if(freq[i].second>=s)
+		if(freq[i].second>=s && freq[i].second>0 )
 			freqSin[freq[i].first]=freq[i].second;
 
 	// cout << "86-- hashmap";
@@ -157,7 +157,12 @@ int main(int argc, char const *argv[])
 						headerInit=false;
 				}
 			}
-				
+			// cout<< "160I Header Print\n";
+			// for (int i = 0; i < header.size(); ++i)
+			// {
+				// cout << header[i].first << " ";
+			// }
+			// cout << endl;
 			// cout << "112--";
 			// cout << endl;
 			// for (int i = 0; i < basket.size(); ++i)
@@ -187,16 +192,47 @@ int main(int argc, char const *argv[])
 	// 	}
 	// 	cout <<endl;
 	// }
-	FPTree con_fp;
+	FPNode* con_fp;
 	std::vector<int> v;
 	//-----------------------
 	// now  doing conditional fptree here and mining frequent subsets
+	// unordered_set<int> noneS;
+	// cout << "195FPNI FP Tree Print--"<< endl;
+	// FP_tree.print();
+	// cout << endl;
+	unordered_map<int,int> conFreq;
+	std::vector<int> order;
+	// cout<< "200I Header Print\n";
+	for (int i = 0; i < header.size(); ++i)
+	{
+		// cout << header[i].first << " ";
+		order.push_back(header[i].first);
+		/* code */
+	}
+	// cout << endl;
 	for (int i = header.size()-1; i >=0; --i)
 	{
-		con_fp=cond_fp(header[i].second, 0);
+		cout << header[i].first <<"\n";//printing singleton.
+		order.pop_back();//the last element is not required in the analysis
+		conFreq.clear();
+		con_fp=cond_fp(header[i].second, NULL, &conFreq);
+
+		// cout << "214I LeafNodes Print\n";
+		// FPNode *n=con_fp;
+		// while(n!=NULL)
+		// {
+		// 	cout << n->key << " ";
+		// 	n=n->next;
+		// }
+		// cout<<endl;
+		// cout << "222I Cond. Tree Print\n";
+		// con_fp->printT();
+		// cout<<endl;
+		
 		v.clear();
 		v.push_back(header[i].first);
-		mineFreq(&con_fp, v, frequency, s);
+		mineFreq(con_fp, &conFreq, &order, &v, s);
+		// break;
 		//see the links of each header entry and find frequent itemsets
 	}
 	return 0;
