@@ -36,16 +36,22 @@ using namespace std;
 
 		FPNode *n;
 		if(children.find(k)!=children.end())
-			children[key]->counter+=c;
+		{
+			// cout << "41N"<<endl;
+			children[k]->counter+=c;
+
+		}
 		else
 		{
+			// cout << "42N"<<endl;
+
 			n= new FPNode(k);
 			n->counter+=c;
 			n->parent=this;
 			this->children[k]=n;
-
-			
 		}
+		// cout << "49N"<<endl;
+
 		// cout<< v.size();
 		// cout << '\n'<<i;
 		// cout << endl;
