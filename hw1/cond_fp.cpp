@@ -202,6 +202,7 @@ void mineFreq( FPNode *vLeafs, std::unordered_map<int,int> *freq, std::vector<in
             for ( int j=p.size()-1; j>0; j--)
             {
                 if(p[j]<p[j-1])
+                // if(intToAscii(p[j])<intToAscii(p[j-1]))
                 {
                     int a=p[j-1];
                     p[j-1]=p[j];
@@ -220,7 +221,8 @@ void mineFreq( FPNode *vLeafs, std::unordered_map<int,int> *freq, std::vector<in
                 std::vector<int> newOrder;
                 // newOrder.assign(order->begin(), (find(order->begin(), order->end(),i))-1);//debug
                 // cout << "221--i-"<<i<<endl;
-                newOrder.assign(order->begin(), order->begin()+ i-1);//debug
+                newOrder.assign(order->begin(), order->begin()+ i);//debug
+                // newOrder.assign(order->begin(), order->begin()+ i-1);//debug
                 // cout<<"220C"<<endl;
                 // cout<<n->key<<endl;
                 unordered_map<int,int> newFreq;
@@ -228,8 +230,6 @@ void mineFreq( FPNode *vLeafs, std::unordered_map<int,int> *freq, std::vector<in
                 // cout<<"186C"<<endl;
                 // newN->printT();
                 // cout << endl;
-                // delete n;
-                // n=newN;
                 mineFreq(newN, &newFreq, &newOrder, &p, s);
                 // cout<< order->size()<<endl;
                 // cout<< "199C"<<endl;
@@ -239,7 +239,6 @@ void mineFreq( FPNode *vLeafs, std::unordered_map<int,int> *freq, std::vector<in
                 newFreq.clear();
                 // newPre.clear();
                 //recursive call done.
-                // p.pop_back()
             }
             p.erase(find(p.begin(), p.end(), (*order)[i]));//erase the element added
         }

@@ -218,25 +218,30 @@ int main(int argc, char const *argv[])
 		conFreq.clear();
 		con_fp=cond_fp(header[i].second, NULL, &conFreq);
 
-		cout << "214I LeafNodes Print\n";
-		FPNode *n=con_fp;
-		while(n!=NULL)
-		{
-			cout << n->key << " ";
-			n=n->next;
-		}
-		cout<<endl;
-		cout << "222I Cond. Tree Print\n";
-		con_fp->printT();
-		cout<<endl;
-		
+		// cout << "214I LeafNodes Print\n";
+		// FPNode *n=con_fp;
+		// while(n!=NULL)
+		// {
+		// 	cout << n->key << " ";
+		// 	n=n->next;
+		// }
+		// cout<<endl;
+		// cout << "222I Cond. Tree Print\n";
+		// con_fp->printT();
+		// cout<<endl;
+		// for (auto i: order)
+		// {
+		// 	cout << i <<" ";
+		// }
+		// cout << endl;
+
 		v.clear();
 		v.push_back(header[i].first);
 		mineFreq(con_fp, &conFreq, &order, &v, s);
 
 		// cout << "236I Cond. End of call to Mine Freq"<<endl;
-		cout << "238I Break encoutered"<<endl;
-		break;
+		// cout << "238I Break encoutered"<<endl;
+		// break;
 		//see the links of each header entry and find frequent itemsets
 	}
 	return 0;
