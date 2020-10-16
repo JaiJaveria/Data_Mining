@@ -84,85 +84,114 @@ void updateLeafN(FPNode** n, int i)
 
     FPNode* t=*n;
     FPNode* iter=*n;
-    // while(iter!=NULL)
-    // {
-    //     cout <<iter->key<<" ";
-    //     iter=iter->next;
-    // }
+    unordered_set<FPNode*> isPresent;
     FPNode* p=NULL;
     FPNode* temp;
+
+    while(iter!=NULL)
+    {
+        // cout <<iter->key<<" ";
+        isPresent.insert(iter);
+        iter=iter->next;
+    }
     // cout<<"87C"<<endl;
-    // cout<<"87"<<endl;
     // cout<<(*n)->key<<endl;
     // cout<<i<<endl;
+    
     while(t!=NULL)
     {
+        // cout <<"100C";
         // cout << t->key<<endl;
+        
+
         if(t->key==i)
         {
             // cout<<"96C"<<endl;
-
-            if(t->parent->key==-1)//parent is root( null )
+            if(isPresent.find(t->parent)!=isPresent.end() )
             {
-                // cout<<"100C"<<endl;
-
-                if(t->next==NULL)
-                {
-                    //the search is over.
-                    //set n to root and return.
-                    *n=t->parent;
-                    return;
-                }
-                if(p!=NULL)
-                    p->next=t->next;
-                else
-                    *n=t->next;
                 temp=t->next;
+               if(p!=NULL)
+                    p->next=temp;
+                else
+                    *n=temp;
                 t->next=NULL;
                 t=temp;
-
+                continue;
             }
             else
             {
-            // cout<<"120C"<<endl;
-
-                //if parent already there in list, it will definately be either just next to the node or just prev in the list.
-                //if it is just next then no issues. if prev then we do not want a self loop.
-                if(p==t->parent)
+                if(t->parent->key==-1)//parent is root( null )
                 {
-                    //do not need a self loop
-                    p->next=t->next;
+                    // cout<<"100C"<<endl;
+
+                    if(t->next==NULL)
+                    {
+                        //the search is over.
+                        //set n to root and return.
+                        *n=t->parent;
+                        return;
+                    }
+                    if(p!=NULL)
+                        p->next=t->next;
+                    else
+                        *n=t->next;
+                    temp=t->next;
                     t->next=NULL;
-                    t=p->next;
-                    continue;
+                    t=temp;
                 }
-                // if(t->next!=NULL)
-                // {
-
-                // }
-                if(t->next==t->parent)
+                else
                 {
+                    //if parent already there in list, it will definately be either just next to the node or just prev in the list.
+                    //if it is just next then no issues. if prev then we do not want a self loop.
+                    // if(p==t->parent)
+                    // {
+                    //     // if(t->next==t->parent)
+                    //     // {
+                    //     //     // p->next=t->next;
+                    //     //     t->next=NULL;
+                    //     //     t=p->next;
+                    //     // }
+                    //     // else
+                    //     {
+                    //         p->next=t->next;
+                    //         t->next=NULL;
+                    //         t=p->next;
+                    //     }
+                    //         continue;
+
+                    //     //do not need a self loop
+                    // }
+                    // // if(t->next!=NULL)
+                    // // {
+
+                    // // }
+                    // if(t->next==t->parent)
+                    // {
+                    //     if(p!=NULL)
+                    //         p->next=t->parent;
+                    //     else
+                    //         (*n)=t->parent;
+                    //     t->next=NULL;
+                    //     t=t->parent;
+                    //     continue;
+                    // }
+
+                    t->parent->next=t->next;
                     if(p!=NULL)
                         p->next=t->parent;
                     else
+                    {
                         (*n)=t->parent;
-                    t->next=NULL;
-                    t=t->parent;
-                }
-                t->parent->next=t->next;
-                if(p!=NULL)
-                    p->next=t->parent;
-                else
-                {
-                    (*n)=t->parent;
-                    // (*n)->next=NULL;
+                        // (*n)->next=NULL;
 
+                    }
+                    temp=t->next;
+                    t->next=NULL;
+                    p=t->parent;
+                    t=temp;
                 }
-                temp=t->next;
-                t->next=NULL;
-                p=t->parent;
-                t=temp;
-            }
+            }    
+            
         }
         else
         {
@@ -233,7 +262,7 @@ void mineFreq( FPNode *vLeafs, std::unordered_map<int,int> *freq, std::vector<in
                 mineFreq(newN, &newFreq, &newOrder, &p, s);
                 // cout<< order->size()<<endl;
                 // cout<< "199C"<<endl;
-                delete newN;
+                // delete newN;
                 updateLeafN(&n,(*order)[i]);// update the leaf nodes. the current item should be removed.
                 // cout<< "202C"<<endl;
                 newFreq.clear();
@@ -247,7 +276,10 @@ void mineFreq( FPNode *vLeafs, std::unordered_map<int,int> *freq, std::vector<in
     }
     // notValidNodes.clear();
     // notValidNodes.shrink_to_fit();
-    // delete n;
+    FPNode* del=n;
+    while(del->parent!=NULL)
+        del=del->parent;
+    delete del;
     // p.clear();
     // p.shrink_to_fit();
 }

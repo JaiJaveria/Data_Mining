@@ -124,13 +124,13 @@ int main(int argc, char const *argv[])
 		cout << "Not found";
 		return -1;
 	}
-	int c=0;//need to delete
+	// int c=0;//need to delete
 	unordered_map <int,int> frequency;
 	while(getline(datbA, d))
 	{
-		c++;//delete
-		if(c>64)
-			break;
+		// c++;//delete/
+		// if(c>64)
+			// break;
 		basket.clear();
 		istringstream ss(d);
 		while( ss>> data)
@@ -238,11 +238,13 @@ int main(int argc, char const *argv[])
 		v.clear();
 		v.push_back(header[i].first);
 		mineFreq(con_fp, &conFreq, &order, &v, s);
-
+		// delete con_fp;
 		// cout << "236I Cond. End of call to Mine Freq"<<endl;
 		// cout << "238I Break encoutered"<<endl;
 		// break;
 		//see the links of each header entry and find frequent itemsets
 	}
+
+	delete FP_tree.root;
 	return 0;
 }

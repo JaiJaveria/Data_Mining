@@ -10,6 +10,10 @@ public:
 	{
 		root= new FPNode(-1);
 	}
+	// ~FPTree()
+	// {
+	// 	delete root;
+	// }
 	FPNode *root;
 
 	void insert(std::vector<int> v, int c,unordered_map<int,int> *&frequency  )
