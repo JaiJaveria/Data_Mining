@@ -23,6 +23,7 @@ public:
     void insert(std::vector<pair<int,int>> v, int c, int i, std::vector<pair<int,FPNode*>> *endNode,unordered_map<int,int> *indexFind, unordered_map<int,int> *frequency );
 	pair<FPNode*, FPNode*> buildLeafList();
 	void printT();
+	void findKey(int a );
 
  //    ~FPNode()
 	// {

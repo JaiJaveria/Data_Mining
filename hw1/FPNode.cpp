@@ -15,6 +15,18 @@ using namespace std;
 		key=k;
 		next=NULL;
 	}
+	void FPNode::findKey(int a )
+	{
+		if(key==a)
+		{
+			cout << "22N Found "<< a<<"\n";
+			return;
+		}
+		for(auto i: children)
+		{
+			i.second->findKey(a);
+		}
+	}
 	// FPNode* parent;
 	// FPNode* next;
 	// int key;

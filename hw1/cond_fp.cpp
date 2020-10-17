@@ -95,13 +95,8 @@ FPNode* cond_fp( FPNode* list, unordered_set<int> *notValidNodes, std::unordered
         // cout << "50C Cond FP Tree"<<endl;
         // cond.print();
         // cout << "42C\n"<<endl;
-        
         ret=cond.buildLeafList();
-        if(ret->key==-1)
-        {
-            cerr << "107C Violation Violation\n";
-            exit(-1);
-        }
+        
         return ret;
     // }
     // else
@@ -117,15 +112,15 @@ void updateLeafN(FPNode** n, int i)
     unordered_set<FPNode*> isPresent;
     FPNode* p=NULL;
     FPNode* temp;
-    bool mone=false;
+    // bool mone=false;
     while(iter!=NULL)
     {
         // cout <<iter->key<<" ";
-        if(iter->key==-1)
-        {
-            cout<< "126C -1 present in argument only";
-            mone=true;
-        }
+        // if(iter->key==-1)
+        // {
+        //     cout<< "126C -1 present in argument only";
+        //     mone=true;
+        // }
         isPresent.insert(iter);
         iter=iter->next;
     }
@@ -136,16 +131,14 @@ void updateLeafN(FPNode** n, int i)
     while(t!=NULL)
     {
         // cout <<"100C";
-        // cout << t->key<<endl;
-        
-
+        // cout << t->key<<":"<<t->counter<<" ";
         if(t->key==i)
         {
             // cout<<"96C"<<endl;
             if(isPresent.find(t->parent)!=isPresent.end() )
             {
                 temp=t->next;
-               if(p!=NULL)
+                if(p!=NULL)
                     p->next=temp;
                 else
                     *n=temp;
@@ -157,15 +150,23 @@ void updateLeafN(FPNode** n, int i)
             {
                 if(t->parent->key==-1)//parent is root( null )
                 {
-                    // cout<<"100C"<<endl;
+                    // cout<<"100C parent null node"<<endl;
 
                     if(t->next==NULL)
                     {
-                        //the search is over.
-                        //set n to root and return.
-                        *n=t->parent;
-                        (*n)->next=NULL;
-                        return;
+                        if(p==NULL)
+                         {   
+                             //the search is over.
+                             //set n to root and return.
+                             *n=t->parent;
+                             (*n)->next=NULL;
+                             // cout<<"167C returnning search finished";
+                             return;
+                         }
+                         else
+                         {
+                            p->next=NULL;
+                         }
                     }
                     if(p!=NULL)
                         p->next=t->next;
@@ -234,15 +235,14 @@ void updateLeafN(FPNode** n, int i)
             t=t->next;
         }
         //remove
-        if(t!=NULL)
-        {
-            if(t->key==-1 && (!mone))
-        {
-            cerr << "Violation Violation";
-            exit(0);
-        }
-        }
-        
+        // if(t!=NULL)
+        // {
+        //     if(t->key==-1 && (!mone))
+        // {
+        //     cerr << "Violation Violation";
+        //     exit(0);
+        // }
+        // }
     }
 }
 
@@ -305,8 +305,19 @@ void mineFreq( FPNode *vLeafs, std::unordered_map<int,int> *freq, std::vector<in
             for ( int j=0; j<p.size(); j++)
                 cout << p[j] << " ";
             cout << "\n";
+
             // cout << "294C Printing the leaves\n";
-            // n->printT();
+            // FPNode* iter=n;
+            // while(iter!=NULL)
+            // {
+            //     cout << iter->key<<":"<<iter->counter<<" ";
+            //     iter=iter->next;
+            // }
+            // cout <<"\n";
+            // if((n->key==-1 && n->next!=NULL))
+            // {
+            //     cout << "313C unexpected behavior. null node with non null next\n";
+            // }
             // if( (!(n->key==-1 && n->next==NULL)) && i>0)
             if( (!(n->key==-1)) && i>0)
             {
@@ -343,6 +354,16 @@ void mineFreq( FPNode *vLeafs, std::unordered_map<int,int> *freq, std::vector<in
         }
         else
         {
+            // cout << "358C Printing the leaves\n";
+            // cout << "359C The item to be removed"<< (*order)[i]<< "\n";
+
+            // FPNode* iter=n;
+            // while(iter!=NULL)
+            // {
+            //     cout << iter->key<<":"<<iter->counter<<" ";
+            //     iter=iter->next;
+            // }
+            // cout << "\n";
             // if( (!(n->key==-1 && n->next==NULL)) && i>0)
             if(n->key!=-1 && i>0)
                 updateLeafN(&n,(*order)[i]);// update the leaf nodes. the current item should be removed.

@@ -15,7 +15,13 @@ public:
 	// 	delete root;
 	// }
 	FPNode *root;
-
+	void findKey(int a)
+	{
+		for(auto i: root->children)
+		{
+			i.second->findKey(a);
+		}
+	}
 	void insert(std::vector<int> v, int c,unordered_map<int,int> *&frequency  )
 	{
 		root->insert(v, c, 0, frequency);
