@@ -27,6 +27,7 @@ FPNode* cond_fp( FPNode* list, unordered_set<int> *notValidNodes, std::unordered
         //     iter=iter->next;          
         // }
         // cout << "\n";
+
         // bool aFound=true;
         while(temp!=NULL)
         {
@@ -47,8 +48,6 @@ FPNode* cond_fp( FPNode* list, unordered_set<int> *notValidNodes, std::unordered
             while(parent->key!=-1)
             // while(parent!=NULL)
             {
-                // if(aFound)
-                // {
                     if(notValidNodes!=NULL)
                     {
 
@@ -66,11 +65,8 @@ FPNode* cond_fp( FPNode* list, unordered_set<int> *notValidNodes, std::unordered
                 //         count=parent->counter;
                 //     }
                 // }
-                
-
                 parent=parent->parent;
                 // cout << "29C\n";
-
             }
             // cout << "42--"<<endl;
             // cout << "35C--" << s.size();
@@ -101,6 +97,11 @@ FPNode* cond_fp( FPNode* list, unordered_set<int> *notValidNodes, std::unordered
         // cout << "42C\n"<<endl;
         
         ret=cond.buildLeafList();
+        if(ret->key==-1)
+        {
+            cerr << "107C Violation Violation\n";
+            exit(-1);
+        }
         return ret;
     // }
     // else
@@ -116,10 +117,15 @@ void updateLeafN(FPNode** n, int i)
     unordered_set<FPNode*> isPresent;
     FPNode* p=NULL;
     FPNode* temp;
-
+    bool mone=false;
     while(iter!=NULL)
     {
         // cout <<iter->key<<" ";
+        if(iter->key==-1)
+        {
+            cout<< "126C -1 present in argument only";
+            mone=true;
+        }
         isPresent.insert(iter);
         iter=iter->next;
     }
@@ -158,6 +164,7 @@ void updateLeafN(FPNode** n, int i)
                         //the search is over.
                         //set n to root and return.
                         *n=t->parent;
+                        (*n)->next=NULL;
                         return;
                     }
                     if(p!=NULL)
@@ -220,13 +227,22 @@ void updateLeafN(FPNode** n, int i)
                     t=temp;
                 }
             }    
-            
         }
         else
         {
             p=t;
             t=t->next;
         }
+        //remove
+        if(t!=NULL)
+        {
+            if(t->key==-1 && (!mone))
+        {
+            cerr << "Violation Violation";
+            exit(0);
+        }
+        }
+        
     }
 }
 
@@ -239,20 +255,29 @@ void mineFreq( FPNode *vLeafs, std::unordered_map<int,int> *freq, std::vector<in
     unordered_set<int> notValidNodes;
     FPNode *n=vLeafs;
     p.assign(prefix->begin(), prefix->end());
+    bool deb=false;
+    if((*prefix)[0]==22)
+        deb=true;
     //finding all nodes with less frequency
-    // cout << "prefix vector 214C\n";
+    // if(deb)
+    // {
+    //     cout << "prefix vector 214C\n";
     // for(auto i:p)
     // {
     //     cout << i<< " ";
     // }
     // cout<<endl;
     // cout << "frequency of elements in order 220C\n";
+    // }
+    
     for( int  i=order->size()-1; i>=0;i--)
     {
+        // if(deb)
         // cout << (*order)[i] << ":"<< (*freq)[((*order)[i])]<<" ";
         if((*freq)[((*order)[i])]<s)
             notValidNodes.insert((*order)[i]);
     }
+    // if(deb)
     // cout<< endl;
     for( int  i=order->size()-1; i>=0;i--)
     {
@@ -280,10 +305,15 @@ void mineFreq( FPNode *vLeafs, std::unordered_map<int,int> *freq, std::vector<in
             for ( int j=0; j<p.size(); j++)
                 cout << p[j] << " ";
             cout << "\n";
-            if(n->key!=-1 && i>0)
+            // cout << "294C Printing the leaves\n";
+            // n->printT();
+            // if( (!(n->key==-1 && n->next==NULL)) && i>0)
+            if( (!(n->key==-1)) && i>0)
             {
-            //call mineFreq recursively.
+                //call mineFreq recursively.
                 FPNode *newN;
+                // cout<<
+                // if(deb)
                 // n->printT();
                 // std::vector<pair<int,int>> newfreq, std::vector<int> newPre;
                 std::vector<int> newOrder;
@@ -313,6 +343,7 @@ void mineFreq( FPNode *vLeafs, std::unordered_map<int,int> *freq, std::vector<in
         }
         else
         {
+            // if( (!(n->key==-1 && n->next==NULL)) && i>0)
             if(n->key!=-1 && i>0)
                 updateLeafN(&n,(*order)[i]);// update the leaf nodes. the current item should be removed.
 
