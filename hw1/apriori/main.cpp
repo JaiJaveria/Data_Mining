@@ -5,8 +5,6 @@
 
 using namespace std;
 
-
-//checks if two sets have same size n, with first n-1 elements the same (for candidate_gen function)
 bool valid(set<int> s1, set<int> s2){
 
 	if(s1.size()!=s2.size()) return false;
@@ -17,7 +15,6 @@ bool valid(set<int> s1, set<int> s2){
 	return s1==s2;
 }
 
-//returns true if pruning has to be done
 bool prune( set<set<int>> &F, set<int> c){
 	for(auto i=c.begin(); i!=c.end(); i++){
 		// set<int> s=c;
@@ -28,7 +25,7 @@ bool prune( set<set<int>> &F, set<int> c){
 	return false;
 }
 
-//generates candidates Ck
+
 void candidate( set<set<int>> &F, map < set<int>,int > &C){
 	for(auto i=F.begin(); i!=F.end(); i++) {
 		auto j=i;
@@ -51,7 +48,7 @@ void candidate( set<set<int>> &F, map < set<int>,int > &C){
 
 
 
-//parses an input string of integers into integers and stores them in set v
+
 void parse(string &line, set<int> &v){
   string sample="";
   int n=line.size();
@@ -72,10 +69,14 @@ void parse(string &line, set<int> &v){
   }
 }
 
-//drives the implementation and applies apriori algorithm
 int main(int argc,  char* argv[]){
 
+	ofstream debugOut;
       string file = string(argv[1]);
+
+	string debFile = string(argv[3]);
+	debugOut.open(debFile.c_str());
+
       ifstream freader(file);
       if(!freader.is_open()){
           cout<<"input file not opened"<<endl;
@@ -135,8 +136,8 @@ int main(int argc,  char* argv[]){
 
 	for(const set<set<int>>& f: ans){
 		for(const set<int>& e: f){
-			for(const int& x: e) {cout<<x<<" ";}
-			cout<<endl;
+			for(const int& x: e) {debugOut<<x<<" ";}
+			debugOut<<endl;
 		}
 	}
 	return 0;
