@@ -19,7 +19,7 @@ for x in support_values:
     k=timeit.default_timer()
     subprocess.run("./fptree "+input+" "+str(x), shell=True)
     l=timeit.default_timer()
-    fp_time.append(k-l)
+    fp_time.append(l-k)
 
 plo.figure()
 plo.plot(support_values,apriori_time,label='apriori')
