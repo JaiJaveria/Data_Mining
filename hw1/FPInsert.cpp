@@ -216,7 +216,7 @@ int main(int argc, char const *argv[])
 		cout << header[i].first <<"\n";//printing singleton.
 		order.pop_back();//the last element is not required in the analysis
 		conFreq.clear();
-		con_fp=cond_fp(header[i].second, NULL, &conFreq);
+		con_fp=cond_fp(header[i].second, NULL, &conFreq, header[i].first);
 
 		// cout << "214I LeafNodes Print\n";
 		// FPNode *n=con_fp;
