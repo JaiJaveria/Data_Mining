@@ -6,6 +6,7 @@ elif [ "$3" == "-fptree" ]; then
         ./fptree $1 $2
 elif [ "$2" == "-plot" ]; then
         python3 plot.py $1
+        rm output
 else
     echo "Wrong command"
 fi
