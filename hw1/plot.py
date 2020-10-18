@@ -3,7 +3,7 @@ import timeit
 import sys
 from matplotlib import pyplot as plo
 
-support_values = [1,5,10,25,50,90]
+support_values = [20,25,35,50,75,90]
 input = sys.argv[1]
 #subprocess.run(compile_command,shell = True)
 
