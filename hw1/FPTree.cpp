@@ -1,8 +1,6 @@
 #include "FPNode.cpp"
 #include <queue>
 #include "FPNode.h"
-
-// #include <iostream>
 class FPTree
 {
 public:
@@ -10,10 +8,7 @@ public:
 	{
 		root= new FPNode(-1);
 	}
-	// ~FPTree()
-	// {
-	// 	delete root;
-	// }
+
 	FPNode *root;
 	void findKey(int a)
 	{
@@ -40,23 +35,16 @@ public:
 	{
 		queue<FPNode*> q;
 		q.push(root);
-		// q.push(NULL);
 		while(!q.empty())
 		{
 			FPNode* n= q.front();
 			q.pop();
-			// if(n==NULL)
-				// cout << "\n";
-			// else
 			printf("%d:%d ",n->key,n->counter );
-			// cout << n->key << " ";
-			// for(auto i=n.children.begin(), i< n.children.end(); i++)
 			for(auto i: n->children)
 			{
 				q.push(i.second);
 			}
 		}
 		printf("\n");
-		// cout << "\n";
 	}
 };

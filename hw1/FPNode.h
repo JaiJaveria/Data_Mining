@@ -24,14 +24,6 @@ public:
 	pair<FPNode*, FPNode*> buildLeafList();
 	void printT();
 	void findKey(int a );
-
- //    ~FPNode()
-	// {
-	// 	for (auto i : children)
-	// 	{
-	// 		delete i.second;
-	// 	}
-	// }
 };
  
 #endif
