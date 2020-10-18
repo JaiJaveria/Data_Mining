@@ -153,7 +153,7 @@ void mineFreq( FPNode *vLeafs, std::unordered_map<int,int> *freq, std::vector<in
             p.push_back((*order)[i]);//assuming the vector prefix is in decreasing order
             for ( int j=p.size()-1; j>0; j--)
             {
-                if(p[j]<p[j-1])
+                if(to_string(p[j])<to_string(p[j-1]))
                 // if(intToAscii(p[j])<intToAscii(p[j-1]))
                 {
                     int a=p[j-1];
