@@ -1,9 +1,0 @@
-main.cpp: includes exact implementation
-test.cpp: contains implementation of apriori with the frequency of each frequent itemset printed at start in the following format:
-
-frequencies of each frequent itemsets printed in each line
-empty line
-frequent itemsets (items are in ASCII order) with each itemset in sorted global order, where each itemset corresponds to the frequency order printed at the start
-
-
-verified test cases: input, input1, input2 (frequencies of frequent itemsets and frequent itemsets match as expected)
