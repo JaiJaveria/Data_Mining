@@ -8,15 +8,15 @@ using namespace std;
 bool valid(set<int> s1, set<int> s2){
 
 	if(s1.size()!=s2.size()) return false;
-	auto t1 = s1.end(); t1--;
-	auto t2 = s2.end(); t2--;
+	set<int>::iterator t1 = s1.end(); t1--;
+	set<int>::iterator t2 = s2.end(); t2--;
 	s1.erase(t1);
 	s2.erase(t2);
 	return s1==s2;
 }
 
 bool prune( set<set<int>> &F, set<int> c){
-	for(auto i=c.begin(); i!=c.end(); i++){
+	for(set<int>::iterator i=c.begin(); i!=c.end(); i++){
 		// set<int> s=c;
 		c.erase(i);
 		if(F.find(c) == F.end()) {return true;}
@@ -27,13 +27,13 @@ bool prune( set<set<int>> &F, set<int> c){
 
 
 void candidate( set<set<int>> &F, map < set<int>,int > &C){
-	for(auto i=F.begin(); i!=F.end(); i++) {
-		auto j=i;
+	for(set<set<int>>::iterator i=F.begin(); i!=F.end(); i++) {
+		set<set<int>>::iterator j=i;
 		j++;
 		for(; j!=F.end(); j++){
 			if(valid(*i, *j)){
 				set<int> s = *i;
-				auto k = (*j).end();
+				set<int>::iterator k = (*j).end();
 				k--;
 				s.insert(*k);
 				if( !prune(F,s) ){
@@ -90,7 +90,7 @@ int main(int argc,  char* argv[]){
 		T++;
         	set<int> v;
         	parse(line,v);
-		for(auto const &x: v) {
+		for(int const &x: v) {
 			set<int> s1={x};
 			C[s1]++;
 		}
@@ -100,8 +100,9 @@ int main(int argc,  char* argv[]){
 
 	float support = (stof(argv[2])/100)*T;
 	set< set<int> > F;
-	for(auto const &x: C) {
-		if(x.second >= support) F.insert(x.first);
+	// for(auto const &x: C)
+	for(map < set<int>,int >::iterator it=C.begin(); it!=C.end(); it++){
+		if((*it).second >= support) F.insert((*it).first);
 	}
 
 	vector< set<set<int>> > ans;
@@ -122,14 +123,14 @@ int main(int argc,  char* argv[]){
 		while(getline(freader1,line)){
 	        	set<int> t;
 	        	parse(line,t);
-			for(auto &c: C) {
-				if (includes(t.begin(), t.end(), c.first.begin(), c.first.end())) c.second++;
+			for(map < set<int>,int >::iterator it=C.begin(); it!=C.end(); it++){
+				if (includes(t.begin(), t.end(), (*it).first.begin(), (*it).first.end())) (*it).second++;
 			}
 	      }
 		freader1.close();
 		F.clear();
-		for(auto const &x: C) {
-			if(x.second >= support) F.insert(x.first);
+		for(map < set<int>,int >::iterator it=C.begin(); it!=C.end(); it++){
+			if((*it).second >= support) F.insert((*it).first);
 		}
 		if(F.size() !=0 ) ans.push_back(F);
 	}
