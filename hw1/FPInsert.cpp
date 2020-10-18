@@ -26,7 +26,7 @@ bool compareMap(unordered_map<int, int> *m, pair<int,FPNode*> a, pair<int,FPNode
 int main(int argc, char const *argv[])
 {
 	ios_base::sync_with_stdio(false);
-	cin.tie(NULL);
+	//cin.tie(NULL);
 	/* Reading the dat file */
 	ifstream datb;
 	int numT;
