@@ -12,7 +12,7 @@ fp_time = []
 
 for x in support_values:
     i=timeit.default_timer()
-    subprocess.run("./apriori "+input+" "+str(x)+" output", shell=True)
+    subprocess.run("./apriori "+input+" "+str(x)+" plot_output", shell=True)
     j=timeit.default_timer()
     apriori_time.append(j-i)
 
