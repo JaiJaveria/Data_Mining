@@ -1,0 +1,6 @@
+q2: reduction.py works on image_data.dat
+test.py has same code, works on input_csv
+
+error in running rediciton.py is because the dataset is too large, otherwise the code works good.
+
+q1: main_q1.cpp works on q1, takes d as first input and which distance formula to use as second input (1 for L1, 2 for L2, any other number for Linf)
