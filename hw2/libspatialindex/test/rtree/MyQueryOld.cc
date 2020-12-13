@@ -36,10 +36,11 @@ using namespace SpatialIndex;
 #define DELETE 0
 #define QUERY 2
 using namespace std;
+int dim=2;
 class MyDataStream : public IDataStream
 {
 public:
-	MyDataStream(std::string inputFile) : m_pNext(nullptr)
+	MyDataStream(std::string inputFile, ) : m_pNext(nullptr)
 	{
 		m_fin.open(inputFile.c_str());
 
@@ -90,10 +91,9 @@ public:
 	{
 		id_type id;
 		uint32_t op;
-		double low[2], high[2];
+		double low[dim], high[dim];
 
-		m_fin >> op >> id >> low[0] >> low[1] >> high[0] >> high[1];
-
+		m_fin >> op >> id //>> low[0] >> low[1] >> high[0] >> high[1];
 		if (m_fin.good())
 		{
 			if (op != INSERT)

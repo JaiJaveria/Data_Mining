@@ -50,49 +50,49 @@ std::ostream& SpatialIndex::operator<<(std::ostream& os, const ISpatialIndex& i)
 		os << *pRTree;
 		return os;
 	}
-/*
-	const SpatialIndex::MVRTree::MVRTree* pMVRTree = dynamic_cast<const SpatialIndex::MVRTree::MVRTree*>(&i);
-	if (pMVRTree != nullptr)
-	{
-		os << *pMVRTree;
-		return os;
-	}
 
-	const SpatialIndex::TPRTree::TPRTree* pTPRTree = dynamic_cast<const SpatialIndex::TPRTree::TPRTree*>(&i);
-	if (pTPRTree != nullptr)
-	{
-		os << *pTPRTree;
-		return os;
-	}
+	// const SpatialIndex::MVRTree::MVRTree* pMVRTree = dynamic_cast<const SpatialIndex::MVRTree::MVRTree*>(&i);
+	// if (pMVRTree != nullptr)
+	// {
+	// 	os << *pMVRTree;
+	// 	return os;
+	// }
+
+	// const SpatialIndex::TPRTree::TPRTree* pTPRTree = dynamic_cast<const SpatialIndex::TPRTree::TPRTree*>(&i);
+	// if (pTPRTree != nullptr)
+	// {
+	// 	os << *pTPRTree;
+	// 	return os;
+	// }
 
 	std::cerr << "ISpatialIndex operator<<: Not implemented yet for this index type." << std::endl;
 	return os;
 }
 
-std::ostream& SpatialIndex::operator<<(std::ostream& os, const IStatistics& s)
-{
-	const SpatialIndex::RTree::Statistics* pRTreeStats = dynamic_cast<const SpatialIndex::RTree::Statistics*>(&s);
-	if (pRTreeStats != nullptr)
-	{
-		os << *pRTreeStats;
-		return os;
-	}
+// std::ostream& SpatialIndex::operator<<(std::ostream& os, const IStatistics& s)
+// {
+// 	const SpatialIndex::RTree::Statistics* pRTreeStats = dynamic_cast<const SpatialIndex::RTree::Statistics*>(&s);
+// 	if (pRTreeStats != nullptr)
+// 	{
+// 		os << *pRTreeStats;
+// 		return os;
+// 	}
 
-	const SpatialIndex::MVRTree::Statistics* pMVRTreeStats = dynamic_cast<const SpatialIndex::MVRTree::Statistics*>(&s);
-	if (pMVRTreeStats != nullptr)
-	{
-		os << * pMVRTreeStats;
-		return os;
-	}
+// 	const SpatialIndex::MVRTree::Statistics* pMVRTreeStats = dynamic_cast<const SpatialIndex::MVRTree::Statistics*>(&s);
+// 	if (pMVRTreeStats != nullptr)
+// 	{
+// 		os << * pMVRTreeStats;
+// 		return os;
+// 	}
 
-	const SpatialIndex::TPRTree::Statistics* pTPRTreeStats = dynamic_cast<const SpatialIndex::TPRTree::Statistics*>(&s);
-	if (pTPRTreeStats != nullptr)
-	{
-		os << * pTPRTreeStats;
-		return os;
-	}
+// 	const SpatialIndex::TPRTree::Statistics* pTPRTreeStats = dynamic_cast<const SpatialIndex::TPRTree::Statistics*>(&s);
+// 	if (pTPRTreeStats != nullptr)
+// 	{
+// 		os << * pTPRTreeStats;
+// 		return os;
+// 	}
 
-	std::cerr << "IStatistics operator<<: Not implemented yet for this index type." << std::endl;
-	return os;
-*/
-}
+// 	std::cerr << "IStatistics operator<<: Not implemented yet for this index type." << std::endl;
+// 	return os;
+
+// }

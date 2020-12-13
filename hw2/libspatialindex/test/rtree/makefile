@@ -23,7 +23,7 @@
 # .PHONY= MyQuery
 # parent=~
 # parent=~/Documents/Sem5/COL761/Assignments/COL761Assignments/hw2/
-parent=../../../
+parent=../../..
 # includeFolder=$(parent)/spatialBuild/usr/local/include/
 includeFolder=$(parent)/libspatialindex/include/
 toolsFolder=$(parent)/libspatialindex/src/tools/
