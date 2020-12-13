@@ -1,3 +1,8 @@
+In question 1, the average ratio of farthest distance to the nearest distance grows exponentiatlly as the dimension of the dataset is reduced
+
+
+
+
 q2: reduction.py works on image_data.dat
 test.py has same code, works on input_csv
 
