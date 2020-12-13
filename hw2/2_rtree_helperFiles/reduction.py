@@ -17,7 +17,7 @@ for i in range(n):
 y = StandardScaler().fit_transform(y)
 pca=decomposition.PCA(n_components=int(sys.argv[2]))
 y=pca.fit_transform(y)
-f1 = open("scratch/output_dim_"+sys.argv[2],"w")
+f1 = open(sys.argv[2],"w")
 for y1 in y:
 	for y11 in y1:
 		f1.write(str(y11))

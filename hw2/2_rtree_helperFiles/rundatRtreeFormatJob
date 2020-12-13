@@ -1,0 +1,34 @@
+#!/bin/sh
+#### Set the job name (for your reference)
+##PBS -N reduction of dimensions
+### Set the project name, your department code by default
+#PBS -P cse
+### Request email when job begins and ends
+#PBS -m bea
+### Specify email address to use for notification.
+#PBS -M $USER@iitd.ac.in
+####
+#PBS -l select=1:ncpus=1
+### Specify "wallclock time" required for this job, hhh:mm:ss
+#PBS -l walltime=1:00:00
+#PBS -q low
+
+# After job starts, must goto working directory. 
+# $PBS_O_WORKDIR is the directory from where the job is fired. 
+echo "==============================="
+echo $PBS_JOBID
+cat $PBS_NODEFILE
+echo "==============================="
+cd $PBS_O_WORKDIR
+#job 
+#module load pythonpackages/3.6.0/pandas/0.23.4/gnu
+#module load pythonpackages/3.6.0/ucs4/gnu/447/six/1.10.0/gnu
+#module load pythonpackages/3.6.0/scikit-learn/0.21.2/gnu
+module unload compiler/python/2.7.13/ucs4/gnu/447
+module load compiler/python/3.6.0/ucs4/gnu/447 
+#python --version
+python datToRTreeFormat.py scratch/output_dim_10 > scratch/dim_10_Rtree
+#NOTE
+# The job line is an example : users need to change it to suit their applications
+# The PBS select statement picks n nodes each having m free processors
+# OpenMPI needs more options such as $PBS_NODEFILE

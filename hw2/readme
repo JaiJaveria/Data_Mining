@@ -1,11 +1,58 @@
-In question 1, the average ratio of farthest distance to the nearest distance grows exponentiatlly as the dimension of the dataset is reduced
+q1 how to run:
+	bash make.sh
+	bash run.sh <d> <whichDis>
+	bash plot.sh
+q1: run.sh works on q1, takes dimension of inputfile (d) as first input and which distance formula to use as second input (1 for L1, 2 for L2, any other number for Linf)
 
+q2 r*tree:
 
+how to run: 
 
+	1. go to the directory libspatialindex/test/rtree
+	2. do make
+	3. run: ./MyQuery input_file query_file capacity utilization dimension k 
+	arguments:
+	input file is the database
+	queries file contains the queries
+	capacity, utilization are parameters to be passed to r*tree algorithm.
+	dimension is the dimension of the database
+	k is the values for k-NN query
 
-q2: reduction.py works on image_data.dat
-test.py has same code, works on input_csv
+helper files for rtree
 
-error in running rediciton.py is because the dataset is too large, otherwise the code works good.
+	datToRTreeFormat.py: this files converts the original database to database input file for the rtree algorithm.
+	createDataSetPartB.py: This file is used to create the subset of containing 1K, 10K and 100K points for dimensions 2,8. The top entries of the input database was taken.
+	queries.py: This file selects 100 queries from a given database. The selction is random.
+	reduction.py: the file reduces dimensions of the image_dat database using PCA. the input are <inputfile> <final_dim> <outputFileName>.
+	rundatRtreeFormatJob: The jonscript used to run datToRTreeFormat.py on HPC.
+	runReductionJob: job script to run reduction.py on HPC. The input database location is hardcoded. It can be changed accordingly.
 
-q1: main_q1.cpp works on q1, takes d as first input and which distance formula to use as second input (1 for L1, 2 for L2, any other number for Linf)
+how to run lsh 
+
+	move to LSH/src/examples/glove
+
+	datasets are present in datasets folder.
+	do: bash run_make.sh. 
+	do: bash run.sh k <dataset_file>
+	queries are automatically generated.
+
+plots
+
+	We have created plots by first dumping the values in a csv file manually and running srripts on it. It is in the 2_plots_and_csv folder. The csv files and plots have the corrrsponding name according to the question. numOp means number of operations/inspections. In r*tree it is (indexIO+leafIO/100). 
+
+how to run PCA
+	put the tar file of dataset in the PCA folder
+	bash unzip.sh
+	bash PCA.sh. the values are hard coded change it for corresponding dimensions and output file.
+
+some bash files can give some warnings. One can safely ignore them
+
+--------OBSERVATIONS AND EXPLANATIONS--------------
+q1: 
+In question 1, the average ratio of farthest distance to the nearest distance grows exponentiatlly as the dimension of the dataset is reduced.
+This is the case because as dimensions increase, the graphs become more sparse. One could imagine points being pushed in the corners of the space rather than the center. As such the concept of nearest neighbours looses its values sinces most of the points are  by and large equally far. Thus the ratio decreases. This phenomena is also refered to as curse of dimsionality 
+
+q2:
+a. we an increase in time of r*tree as dimensions increases. This is because ofo the fact that as dimensions increases, the MBRs start expanding and overlapping more, leading to more compute. In LSH the number of inspections decreases as dimensions increases. Beacuse as dimensions increase, there are more values to be equated so as to call a collision. Thus we see a decrease in number of collisions. 
+b. As the database size increases, more computation is needed and thus we see an increase in execution time for both index structures. 
+c. There is no change in the number of oprations in LSH. This is due to the fact that irrespective of k, the LSH algorithm would have the same number of collisions to get the sorted list of nearest neighbours. The indexIO does not change for r*tree but the leafIO increases with more k.
