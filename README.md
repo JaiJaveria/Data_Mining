@@ -1,7 +1,5 @@
-# COL761Assignments
-Team Members Include:
+# Data Mining Assignments
+- hw1: Apriori Algorithm and FP Tree are implemented in Python to mine frequent itemsets
+- hw2: Behavior of hierarchical space partitioning techniques, R star-tree and LSH, is evaluated on high dimensional data
 
-Group Members:
-1) Jai Javeria - 2018CS10340
-2) Prakam – 2018CS10367
-3) Pratik Prawar - 2018CS50415
+This was done is a team of 3: Jai, Prakam and Pratik
