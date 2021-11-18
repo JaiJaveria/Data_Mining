@@ -56,7 +56,7 @@ FPNode* cond_fp( FPNode* list, unordered_set<int> *notValidNodes, std::unordered
    }
 void updateLeafN(FPNode** n, int i)
 {
-
+    //remove the nodes with key = i from the list n.
     FPNode* t=*n;
     FPNode* iter=*n;
     unordered_set<FPNode*> isPresent;
@@ -72,8 +72,13 @@ void updateLeafN(FPNode** n, int i)
     {
         if(t->key==i)
         {
+            //this node should be deleted. remove it and add its parent.
+            
+            //but if the parent already exist. just delete the node
             if(isPresent.find(t->parent)!=isPresent.end() )
             {
+                
+            //better way(maybe): either the previous node or the next node can be the parent
                 temp=t->next;
                 if(p!=NULL)
                     p->next=temp;
@@ -88,7 +93,7 @@ void updateLeafN(FPNode** n, int i)
                 if(t->parent->key==-1)//parent is root( null )
                 {
 
-                    if(t->next==NULL)
+                    if(t->next==NULL)//no next element in the leaf list
                     {
                         if(p==NULL)
                          {   
@@ -103,6 +108,7 @@ void updateLeafN(FPNode** n, int i)
                             p->next=NULL;
                          }
                     }
+                    //else just remove this element from the list
                     if(p!=NULL)
                         p->next=t->next;
                     else
@@ -113,6 +119,7 @@ void updateLeafN(FPNode** n, int i)
                 }
                 else
                 {
+                    //if parent is not the root, add the parent to the list and remove the current node.
                     t->parent->next=t->next;
                     if(p!=NULL)
                         p->next=t->parent;
@@ -156,13 +163,13 @@ void mineFreq( FPNode *vLeafs, std::unordered_map<int,int> *freq, std::vector<in
             for ( int j=p.size()-1; j>0; j--)
             {
                 if(to_string(p[j])<to_string(p[j-1]))
-                // if(intToAscii(p[j])<intToAscii(p[j-1]))
                 {
                     int a=p[j-1];
                     p[j-1]=p[j];
                     p[j]=a;
                 }
             }
+            //print the frequent itemset
             for ( int j=0; j<p.size(); j++)
                 cout << p[j] << " ";
             cout << "\n";
