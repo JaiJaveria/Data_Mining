@@ -13,7 +13,7 @@ FPNode* cond_fp( FPNode* list, unordered_set<int> *notValidNodes, std::unordered
     FPNode* temp= list;
     FPNode* ret;
     FPTree cond;
-
+    //temp is the leaf nodes of the conditional fp tree. 
     while(temp!=NULL)
     {
         if(temp->key!=a)
@@ -26,7 +26,7 @@ FPNode* cond_fp( FPNode* list, unordered_set<int> *notValidNodes, std::unordered
         stack<int> s;
         FPNode* parent = temp->parent;
         vector<int> v;
-        
+        //go up the tree to find the sequence which has count number of occurances
         while(parent->key!=-1)
         {
                 if(notValidNodes!=NULL)
@@ -40,15 +40,17 @@ FPNode* cond_fp( FPNode* list, unordered_set<int> *notValidNodes, std::unordered
             parent=parent->parent;
         }
         v.clear();
+        //s is the reverse of the sequence. extract the sequnce to the vector v
         while(s.size()!=0){
             v.push_back(s.top());
             s.pop();
         }
+        //add the sequence in vector v to the cond fp tree.
         if(v.size()>0)
             cond.insert(v,count, freq);
         temp = temp->next;
     }
-    
+    //cond will be the root of the cond fp tree. we need the list of leaf node. generate that and return.
     ret=cond.buildLeafList();
     return ret;
    }
