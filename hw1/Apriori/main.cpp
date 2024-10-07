@@ -1,6 +1,9 @@
 #include<iostream>
-#include<bits/stdc++.h>
+#include<vector>
+#include<string>
+#include<map>
 #include<set>
+#include<fstream>
 
 
 using namespace std;

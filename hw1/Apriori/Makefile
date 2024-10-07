@@ -1,7 +1,8 @@
-main:	
-	gcc main.cpp -o main -lstdc++
+main: main.cpp
+	gcc main.cpp -o main -lstdc++ -std=c++11
+
+execute:
 	./main input3 40 output.txt
-	rm main
 
 mytest:	
 	g++ test.cpp -o test
